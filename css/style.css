@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/* CSS Document */
+#map {
+        height: 90%;
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+		position: absolute;
+		top:10%;
+		left:0;
+		z-index: 1;
+      }
+
+    #LocateButton {
+      position: absolute;
+      bottom: 17px;
+      left: 10px;
+      z-index: 1;
+	  height: 30px;
+	  width: 30px;
+    }
+	#closestPoint {
+      position: absolute;
+      bottom: 17px;
+      left: 50px;
+      z-index: 1;
+	  width: 30px;
+	  height: 30px;
+	  background-color: black;
+	  
+	  
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	  color: white;
+	  
+	  text-align:center;
+	  -moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+	  
+    }
+	
+	#addPoint {
+      position: absolute;
+      bottom: 17px;
+      left: 90px;
+      z-index: 1;
+	  width: 30px;
+	  height: 30px;
+	  background-color: black;
+	  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+      filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	  color: white;
+	  text-align:center;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  border-radius: 5px;
+	  
+    }
+	
+	
+#subtitle {
+	text-transform:none;
+}
+	#nav1 {
+      position: absolute;
+      top: 7px;
+      left: 15%;
+      z-index: 50;
+	  width: 20%;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	  background-color: black;
+	  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+	  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	  color: white;
+	  text-align:center;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  border-radius: 5px;
+	  cursor: context-menu;
+	  
+    }
+	#nav2 {
+      position: absolute;
+      top: 7px;
+      left: 40%;
+      z-index: 50;
+	  width: 20%;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	  background-color: black;
+	  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+	  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	  color: white;
+	  text-align:center;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  border-radius: 5px;
+	  
+    }
+	
+	#nav3 {
+      position: absolute;
+      top: 7px;
+      left: 65%;
+      z-index: 50;
+	  width: 20%;
+	  padding-top: 10px;
+	  padding-bottom: 10px;
+	  background-color: black;
+	  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+	  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	  color: white;
+	  text-align:center;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  border-radius: 5px;
+	  
+    }
+	
+	#closestPoint img, #addPoint img {
+		height: 100%;
+		width: 100%;
+	}
