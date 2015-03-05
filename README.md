@@ -17,6 +17,6 @@ We hope that Open Wi-Finder will allow for steps to be taken toward mending the 
 
 
 #### Roadmap:
-* Further develop analytics functionality.
-* Introduce gamification to charter unexplored areas.
-An objective-based system which rewards users for discovering free Wi-Fi hotspots is currently in the works. Clustering and heatmaps will be used to visualize the flow of hotspots through a city. 
+* **Implement n-minute trade area method for delimitating hotspot coverage.** A walking time distance of fifteen minutes will be used to approximate access to each hotspot location.
+* **Further develop analytics functionality.** Datasets containing all attribute information for hotspots will be available in JSON and CSV format. Clustering and heatmaps will be implemented to visualize the flow of hotspots throughout a city. 
+* **Introduce gamification to charter unexplored areas.** An objective-based system which rewards users for discovering free Wi-Fi hotspots is currently in the works. 
