@@ -154,12 +154,12 @@ require([
           map.centerAt(pt);
         }
 		
-		function addPoint() {
+		function addPoint(long, lat, ssid, auth, avail) {
     //alert("Something happened");
 	
 		if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
-	hotspotPoint = new Point(-73.5524, 45.5049);
-	var attr = {"SSID":"SSID_Name","Freedom":"Open, no security | Open, with registration | Paid Access","Availability":"24/7 | During Business Hours | Occasionally "};
+	hotspotPoint = new Point(this.long, this.lat);
+	var attr = {"SSID":this.ssid,"Authorization":this.auth,"Availability":this.avail};
 	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong> ${SSID} <br/>  <strong>Freedom Level:</strong> ${Freedom} <br/>   <strong>Availability:</strong> ${Availability}");
     map.centerAt(hotspotPoint);	
 	
