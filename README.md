@@ -4,7 +4,7 @@
 —
 
 #### **What it does:** 
-*Open Wi-Finder was built to address the existing paucity of information regarding Wi-Fi access in Canadian cities. The application serves two purposes:*
+*Open Wi-Finder was built to address the existing paucity of information regarding Wi-Fi access in Canadian cities. It employs a scalable, platform-independent approach and requires an existing connection for GPS functionality. The application serves two purposes:*
 1. On the citizen-facing side of the application, users use their GPS location to either a) find a Wi-Fi hotspot nearby or b) contribute the location of a Wi-Fi hotspot. Each Wi-Fi hotspot will possess attribute information regarding SSID, whether or not it is free, and hours of accessibility. 
 2. The Wi-Fi point locations, embedded with the aforementioned information, are available for download on the analytics side of the application. Governments and civic hackers can identify pockets and clusters of Wi-Fi access, overlay census tract data to conduct socioeconomic analyses within these areas, and formulate policies accordingly. 
 
