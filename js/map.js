@@ -183,16 +183,3 @@ function findClosest() {
 var Hotspot = function (ssid) {
 	this.ssid = ssid;
 };
-
-	geoFire.set({
-"locationname": ["Palais de Justice"],
-"location": [36.98, -122.56],
-"description": ["Ground floor, good connection"]
-}).then(function() {
-console.log("Provided keys have been added to GeoFire");
-}, function(error) {
-console.log("Error: " + error);
-});
-alert("reached end of function");
-
-}
