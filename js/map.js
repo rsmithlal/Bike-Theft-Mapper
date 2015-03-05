@@ -10,6 +10,8 @@ var loc;
 var long;
 var lat;
 
+var addPtBtn;
+
 long = "-73.5673";
 lat = "45.5017";
 
@@ -17,20 +19,24 @@ require([
       "esri/map", 
       "esri/dijit/LocateButton",
       "esri/geometry/Point", 
-        "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
-        "esri/graphic", "esri/Color", 
-		//Geometry Modules
-  "esri/geometry/Geometry",
-  "esri/geometry/Polyline",
-  "esri/geometry/Polygon",
- 
-  //Graphic & Style Modules
-  "esri/graphic",
-  "esri/symbols/SimpleFillSymbol",
-  "esri/InfoTemplate",
- 
-  "dojo/domReady!",
-  "esri/geometry" 
+	  "esri/symbols/SimpleMarkerSymbol", 
+	  "esri/symbols/SimpleLineSymbol",
+	  "esri/graphic", 
+	  "esri/Color", 
+	  //Geometry Modules
+	  "esri/geometry/Geometry",
+	  "esri/geometry/Polyline",
+	  "esri/geometry/Polygon",
+	 
+	  //Graphic & Style Modules
+	  
+	  "esri/symbols/SimpleFillSymbol",
+	  "esri/InfoTemplate",
+	 
+	   
+	  "dojo/dom", 
+	  "dojo/on", 
+	  "dojo/_base/lang", "dojo/domReady!" 
     ], function(
       Map, LocateButton, Point,
         SimpleMarkerSymbol, SimpleLineSymbol,
@@ -41,7 +47,11 @@ require([
  
     //Graphic & Style Hooks
     SimpleFillSymbol,
-    InfoTemplate
+    InfoTemplate, 
+	dom, 
+	on, 
+	lang,
+	domReady
     )  {
 
       map = new Map("map", {
@@ -56,6 +66,9 @@ require([
         map: map
       }, "LocateButton");
       geoLocate.startup();
+	  
+	  var addPointBtn = dom.byId("addPtBtn");
+	  on(addPointBtn, "click", addPoint);
 
 
 //detect change in device orientation and rotate page
@@ -71,11 +84,14 @@ require([
         function initFunc(map) {
           if( navigator.geolocation ) {  
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-			loc = navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
+			//loc = navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
             //watchId = navigator.geolocation.watchPosition(showLocation, locationError); //Turns off watchPosition when commented
           } else {
             alert("Browser doesn't support Geolocation. Visit http://caniuse.com to see browser support for the Geolocation API.");
           }
+		  
+		  
+
         }
 //error handling for geolocation
         function locationError(error) {
@@ -138,7 +154,17 @@ require([
           map.centerAt(pt);
         }
 		
-		
+		function addPoint() {
+    //alert("Something happened");
+	
+		if(map){alert("Map OK");}
+	newPoint = new Point(-73.5524, 45.5049);
+
+    map.centerAt(newPoint);	
+	
+	addGraphic(newPoint);
+		  	  	  
+}
         
         
       });
@@ -151,19 +177,7 @@ function findClosest() {
 }
 
 //function to add a new hotspot point from the user to the map
-function addPoint() {
-    //alert("Something happened");
-	if (map){
-		alert("Map OK");
-	}
-	newPoint = new esri.geometry.Point(-73.5524, 45.5049);
 
-    map.centerAt(newPoint);	
-	
-	graphic = new esri.Graphic(newPoint, simpleMarkerSymbol);  
-	map.graphics.add(graphic);
-		  	  	  
-}
 
 var Hotspot = function (ssid) {
 	this.ssid = ssid;
