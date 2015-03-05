@@ -126,8 +126,8 @@ require([
 		  lat = location.coords.latitude;
         }
 
-//add graphic to map; helper for geocoder point	    
-		function addGraphic(pt){
+//add graphic to map; helper for adding points	    
+		function addGraphic(pt, attributes, info){
           var symbol = new SimpleMarkerSymbol(
             SimpleMarkerSymbol.STYLE_CIRCLE, 
             12, 
@@ -138,7 +138,7 @@ require([
             ), 
             new Color([210, 105, 30, 0.9])
           );
-          graphic = new Graphic(pt, symbol);
+          graphic = new Graphic(pt, symbol, attributes, info);
           map.graphics.add(graphic);
         }
 		
@@ -157,12 +157,13 @@ require([
 		function addPoint() {
     //alert("Something happened");
 	
-		if(map){alert("Map OK");}
-	newPoint = new Point(-73.5524, 45.5049);
-
-    map.centerAt(newPoint);	
+		if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
+	hotspotPoint = new Point(-73.5524, 45.5049);
+	var attr = {"SSID":"SSID_Name","Freedom":"Open, no security | Open, with registration | Paid Access","Availability":"24/7 | During Business Hours | Occasionally "};
+	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong> ${SSID} <br/>  <strong>Freedom Level:</strong> ${Freedom} <br/>   <strong>Availability:</strong> ${Availability}");
+    map.centerAt(hotspotPoint);	
 	
-	addGraphic(newPoint);
+	addGraphic(hotspotPoint, attr, hotspotInfoBox);
 		  	  	  
 }
         
