@@ -18,5 +18,5 @@ Utilizes:
 
 Roadmap:
 * Further develop analytics functionality.
-* Introduce gamification to charter unexplored areas. 
-** An objective-based system which rewards users for discovering free Wi-Fi hotspots is currently in the works. Clustering and heatmaps will be used to visualize the flow of hotspots through a city. 
+* Introduce gamification to charter unexplored areas.
+An objective-based system which rewards users for discovering free Wi-Fi hotspots is currently in the works. Clustering and heatmaps will be used to visualize the flow of hotspots through a city. 
