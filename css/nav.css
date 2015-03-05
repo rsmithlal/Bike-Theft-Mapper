@@ -12,7 +12,7 @@ Primary style
 body, header {
   font-size: 100%;
   font-family: "Source Sans Pro", sans-serif;
-  color: rgba(2, 23, 37, 0.7);
+  color: rgba(0, 0, 0, 0.7);
   background-color: black;
 }
 body.overflow-hidden {
@@ -45,6 +45,12 @@ Modules - reusable parts of our design
   width: 90%;
   max-width: 768px;
   margin: 0 auto;
+  margin-top: 5%;
+  background-color: white;
+  padding-left:20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  text-align:justify;
   
 }
 .cd-container:after {
@@ -101,7 +107,7 @@ html, body {
     /* when the user scrolls down, we hide the header right above the viewport */
     position: fixed;
     top: -80px;
-    background-color: rgba(2, 23, 37, 0.96);
+    background-color: rgba(0, 0, 0, 0.96);
     -webkit-transition: -webkit-transform 0.3s;
     -moz-transition: -moz-transform 0.3s;
     transition: transform 0.3s;
@@ -301,6 +307,31 @@ nav ul
 	display: none;
 }
 
+.teamMember {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.teamMember h2 {
+	text-align: center;
+}
+
+.teamMember img {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.teamMember p {
+	
+}
+
+.cd-container h1 {
+	text-align:center;
+}
+
 .cd-primary-nav {
   /* by default it's hidden - on top of the viewport */
   position: absolute;
@@ -455,8 +486,8 @@ ul.cd-primary-nav {
   z-index: 1;
 }
 .cd-main-content p {
-  line-height: 1.6;
-  margin: 2em 0;
+  line-height: 1;
+  margin: 10px 0;
 }
 @media only screen and (min-width: 1170px) {
   .cd-main-content p {

@@ -180,6 +180,6 @@ function findClosest() {
 //function to add a new hotspot point from the user to the map
 
 
-var Hotspot = function (ssid) {
+var Hotspot = function (ssid, freedom, availability, long, lat) {
 	this.ssid = ssid;
 };
