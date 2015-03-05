@@ -6,6 +6,9 @@ var watchId;
 var graphicsArray = [];
 var newPoint;
 var loc;
+var myFirebase = new Firebase("https://esrimcgilltest.firebaseio.com/");
+var myGeofire = new GeoFire(myFirebase);
+var mydatasnapshot;
 
 var long;
 var lat;
@@ -69,6 +72,9 @@ require([
 	  
 	  var addPointBtn = dom.byId("addPtBtn");
 	  on(addPointBtn, "click", addPoint);
+	  
+	  var loadPtsBtn = dom.byId("loadPts");
+	  on(loadPtsBtn, "click", iterateFirebase);
 
 
 //detect change in device orientation and rotate page
@@ -154,17 +160,41 @@ require([
           map.centerAt(pt);
         }
 		
-		function addPoint(long, lat, ssid, auth, avail) {
-    //alert("Something happened");
+	function addPoint(long, lat, ssid, auth, avail) {
+//alert("Something happened");
+if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
+hotspotPoint = new Point(this.long, this.lat);
+var attr = {"SSID":this.ssid,"Authorization":this.auth,"Availability":this.avail};
+var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong> ${SSID} <br/> <strong>Freedom Level:</strong> ${Freedom} <br/> <strong>Availability:</strong> ${Availability}");
+map.centerAt(hotspotPoint);
+addGraphic(hotspotPoint, attr, hotspotInfoBox);
+}
+
+		function iterateFirebase(){
+	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
+	//'Auth_type' children under 'attributes' and displays an alert for each record
+		myFirebase.on("value", function(snapshot) {
+		console.log(snapshot.val());
+		mydatasnapshot = snapshot.child("features");		
+		
+		}, function (errorObject) {
+		console.log("The read failed: " + errorObject.code);
+	});
+	alert("reached end of .on function");
 	
-		if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
-	hotspotPoint = new Point(this.long, this.lat);
-	var attr = {"SSID":this.ssid,"Authorization":this.auth,"Availability":this.avail};
-	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong> ${SSID} <br/>  <strong>Freedom Level:</strong> ${Freedom} <br/>   <strong>Availability:</strong> ${Availability}");
-    map.centerAt(hotspotPoint);	
-	
-	addGraphic(hotspotPoint, attr, hotspotInfoBox);
-		  	  	  
+	mydatasnapshot.forEach(function(childSnapshot){
+			var key = childSnapshot.key();
+			var xcoord = childSnapshot.child("geometry/x").val();
+			var ycoord = childSnapshot.child("geometry/y").val();
+			var authentication = childSnapshot.child("attributes/Auth_type").val();
+			var availability = childSnapshot.child("attributes/Avail_type").val();
+			var SSID = childSnapshot.child("attributes/SSID").val();
+			
+			
+			
+			return true;
+		});
+		alert("reached end of iterations");
 }
         
         
@@ -182,4 +212,29 @@ function findClosest() {
 
 var Hotspot = function (ssid, freedom, availability, long, lat) {
 	this.ssid = ssid;
+	
 };
+<<<<<<< HEAD
+
+var hotspot1 = new Hotspot("1234");
+
+function pushToFirebase(){
+	
+/* 	myFirebase.child(/features).set({
+	hotspotname: hotspot1.ssid,
+	location: [long, lat],
+	description: "Ground floor, good connection"
+	}); */
+	
+	/* myFirebase.set({
+	"hotspotname": ["Hello", long,lat,"description"],
+	"location": [long,lat],
+	"description": ["Ground floor, good connection"]
+	}).then(function() {
+	console.log("Provided keys have been added to GeoFire");
+	}, function(error) {
+	console.log("Error: " + error);
+	}); */
+}	
+=======
+>>>>>>> origin/master
