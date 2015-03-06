@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no">
@@ -27,7 +27,7 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <title>Open Wi-Finder</title>
+  <title>Open Wi-Finder: App Info</title>
   
   <!-- STYLES -->
   
@@ -43,7 +43,6 @@
     and http://www.pointabout.com/category/development-blog/pointabout-dev-help/-->
 
   <script src="js/modernizr.js"></script> <!-- Modernizr -->
-   <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
  
   
 </head>
@@ -72,12 +71,12 @@
               <li class="cd-label">Wi-Finder</li>
               <li><a href="index.html">Open map</a></li>
               <li><a href="#0">Data</a></li>
-              <li><a href="#0">App info</a></li>
+              <li><a href="appInfo.html">App info</a></li>
 			</div>
             <div class="navCol">
               <li class="cd-label">About us</li>
               <li><a href="team.html">The team</a></li>
-              <li><a href="#0">Challenge</a></li>
+              <li><a href="challenge.html">Challenge</a></li>
               <li><a href="#0">Our projects</a></li>
 			</div>
             <div class="navFooter">
@@ -90,20 +89,36 @@
 	</nav>
     
     <!--END Nav-->
-    <div class="cd-container">
-        <!--Map Container-->
-        <div id="map"></div>
-       
-        <div id="LocateButton"></div>
-        <a href="#" id="closestPoint"><img id="loadPts" src="img/wifiTrans.png"></a>
-        <a href="#" id="addPoint" ><img id="addPtBtn" src="img/addWiFi.png"></a>
-    </div>
-  
-  
-  <script src="//js.arcgis.com/3.12/"></script>
-  
-  <script src="js/map.js"></script>
-  <script src="js/jquery-2.1.1.js"></script>
+
+	<main class="cd-main-content">
+		<div class="cd-container">
+			<h1>The Team</h1>
+            
+            <div class="teamMember">
+            	<h2>Member 1</h2>
+                <img src="img/bioTemp.jpg" alt="member1" />
+                <p>Information, the sun blackened as the fierce winds started to howl. The competition drew to a close as all teams raced to submit their hastily and expertly created code to ESRI in time.</p>
+                <p>More Info</p>
+            </div>
+            <div class="teamMember">
+            	<h2>Member 2</h2>
+                <img src="img/bioTemp.jpg" alt="member2" />
+                <p>Information</p>
+                <p>More Info</p>
+            </div>
+            <div class="teamMember">
+            	<h2>Member 3</h2>
+                <img src="img/bioTemp.jpg" alt="member3" />
+                <p>Information</p>
+                <p>More Info</p>
+            </div>
+            
+		</div>
+	</main>
+    <footer>
+    
+    </footer>
+<script src="js/jquery-2.1.1.js"></script>
 <script src="js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
