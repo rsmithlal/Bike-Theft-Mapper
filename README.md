@@ -1,6 +1,6 @@
 # [Open Wi-Finder](http://openwifinder.com)
 ## Built for the Esri Canada Center of Excellence 2015 App Challenge
-### *Robert Smith, Matt Kalebic, and Peck Sangiambut // McGill University*
+### *Robert Smith, Matt Kalebic, and Suthee Sangiambut // McGill University*
 —
 
 #### **What it does:** 
