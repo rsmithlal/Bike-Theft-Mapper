@@ -1,3 +1,10 @@
+
+<!--#### Utilizes:
+* [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/)
+* [CodyHouse Full-Screen Pop-Out Navigation](http://codyhouse.co/gem/full-screen-pop-out-navigation/)
+* [Firebase ](https://www.firebase.com)--> 
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,7 +61,7 @@
 <!--header-->
    <!--Nav Bar-->
    <header class="cd-header">
-		<div class="cd-logo"><a href="#0">Open Wi-Finder: <span id="subtitle">Free Wi-Fi Locator</span></a></div>
+		<div class="cd-logo"><a href="index.html">Open Wi-Finder: <span id="subtitle">Free Wi-Fi Locator</span></a></div>
 
 		<nav id="navElements">
 			<ul class="cd-secondary-nav">
@@ -69,27 +76,29 @@
 	</header>
 
 	<nav>
-		<ul class="cd-primary-nav">
-        	<div class="navCol">
+    <ul class="cd-primary-nav">
+          <div class="navCol">
               <li class="cd-label">Wi-Finder</li>
               <li><a href="index.html">Open map</a></li>
-              <li><a href="#0">Data</a></li>
-              <li><a href="#0">App info</a></li>
-			</div>
+              <li><a href="data.html">Data</a></li>
+              <li><a href="appInfo.html">App info</a></li>
+      </div>
             <div class="navCol">
               <li class="cd-label">About us</li>
               <li><a href="team.html">The team</a></li>
-              <li><a href="#0">Challenge</a></li>
-              <li><a href="#0">Our projects</a></li>
-			</div>
+              <li><a href="challenge.html">Challenge</a></li>
+      </div>
             <div class="navFooter">
               <li class="cd-label">Follow us</li>
               <li class="cd-social cd-facebook"><a href="#0">Facebook</a></li>
               <li class="cd-social cd-instagram"><a href="#0">LinkedIn</a></li>
               <li class="cd-social cd-twitter"><a href="#0">Twitter</a></li>
             </div>
-		</ul>
+    </ul>
 	</nav>
+    
+   
+    
     
     <!--END Nav-->
     <div id="bodyWrapper">
@@ -97,10 +106,44 @@
         <div id="map"></div>
        
         <div id="LocateButton"></div>
-        <a href="#" id="closestPoint"><img id="loadPts" src="img/wifiTrans.png"></a>
-        <a href="#" id="addPoint" ><img id="addPtBtn" src="img/addWiFi.png"></a>
-		<a href="#" id="pushData" ><img id="pushDataBtn" src="img/addWiFi.png"></a>
-    </div>
+        <a href="#" id="closestPoint"><img src="img/findNearest.png" alt="Find Closest Hotspot"></a>
+        <a href="#" id="addPointPopup" ><img src="img/addHotspot.png" alt="Add a new Hotspot"></a>
+		
+        <div id="popupDiv">
+        <div id="popupContact">
+<!-- Contact Us Form -->
+          <form action="#" id="form" method="post" name="form">
+         <!-- <img id="close" src="images/3.png" onclick ="div_hide()">-->
+          <h2>Add New Hotspot</h2>
+          
+          	<label style="display:block;" for="ssid">Network Name: </label>
+            <input id="ssid" name="Network Name" placeholder="SSID" type="text">
+          <label style="display:block;" for="auth">Access: </label>
+          <select id="auth" name="Access">
+          		<option value="Free, open access">Free</option>
+                <option value="Free with login">Free with Login</option>
+                <option value="Subscription/Paid">Subscription/Paid</option>
+          </select>
+          <label style="display:block;" for="avail">Availability: </label>
+          <select id="avail" name="Availability">
+          		<option value="24/7">24/7</option>
+                <option value="During Business Hours">During Business Hours</option>
+                <option value="Occasionally">Occasionally</option>
+          </select>
+          <label style="display:block;" for="open">Open from: </label>
+            <input id="openhr" name="Open From" placeholder="Hour" type="number" min="0" max="24">
+            <label style="display:block;" for="close">Until: </label>
+            <input id="closedhr" name="Until" placeholder="Hour" type="number" min="0" max="24">
+          <a href="#" id="submit" class="submit">Send</a>
+          <a href="#" id="closeDiv" class="close">Close</a>
+          </form>
+          </div>
+          
+          <!-- Popup Div Ends Here -->
+          </div>
+          <!-- Display Popup Button -->
+          
+      </div>
   
   
   <script src="//js.arcgis.com/3.12/"></script>
