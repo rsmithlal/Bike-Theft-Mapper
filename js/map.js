@@ -73,12 +73,14 @@ require([
 	  var pushDataBtn = dom.byId("pushData");
 	  on(pushDataBtn, "click", pushToFirebase);
 	  
-	  var Hotspot = function (lon, lat, ssid, auth, avail) {
+	  var Hotspot = function (lon, lat, ssid, auth, avail, openhr, closedhr) {
   		this.lon = lon;
 		this.lat = lat;
 		this.ssid = ssid;
 		this.auth = auth;
 		this.avail = avail;
+		this.openhr = openhr;
+		this.closedhr = closedhr;
 		this.pt = new Point(lon, lat);
 		
 	  }
@@ -91,8 +93,8 @@ require([
 	//draw() function draws all hotspots in the hotspotList[]
 	function draw () {
 		for (i=0; i<hotspotList.length; i++){
-			var attr = {"SSID":hotspotList[i].ssid,"Authorization":hotspotList[i].auth,"Availability":hotspotList[i].avail};
-	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
+			var attr = {"SSID":hotspotList[i].ssid,"Authorization":hotspotList[i].auth,"Availability":hotspotList[i].avail,"Open":hotspotList[i].openhr,"Closed":hotspotList[i].closedhr};
+	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>SSID: </strong> ${SSID}  <br/> <strong>Type:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability} <br/><strong>Open:</strong>${Open}</br><strong>Closed:</strong>${Closed}");
 			addGraphic(hotspotList[i].pt, attr, hotspotInfoBox);
 		}
 		
@@ -237,32 +239,28 @@ require([
 		
 		//iterate through each child in the datasnapshot
 		dataObject.forEach(function(childSnapshot){
-						
-			var xcoord = childSnapshot.child("Longitude").val();
-			var ycoord = childSnapshot.child("Latitude").val();
-			var authentication = childSnapshot.child("Auth_type").val();
-			var availability = childSnapshot.child("Avail_type").val();
-			var SSID = childSnapshot.child("SSID").val();
 			
-			//convert to strings
-			var xcoord = Number(xcoord);
-			var ycoord = Number(ycoord);
-			var authentication = String(authentication);
-			var availability = String(availability);
-			var SSID = String(SSID);
+			//grabs each attribute from the firebase children, and converts to respective types (Number or String)
+			var xcoord = Number(childSnapshot.child("Longitude").val());
+			var ycoord = Number(childSnapshot.child("Latitude").val());
+			var authentication = String(childSnapshot.child("Auth_type").val());
+			var availability = String(childSnapshot.child("Avail_type").val());
+			var SSID = String(childSnapshot.child("SSID").val());
+			var openhr = Number(childSnapshot.child("Openhr").val());
+			var closedhr = Number(childSnapshot.child("Closedhr").val());
 			
-			//how many children do i have
-			var numberofchild = dataObject.numChildren();
-			console.log(numberofchild);
+
 			
-			var hotspot = new Hotspot(xcoord, ycoord, SSID, authentication, availability);
+			var hotspot = new Hotspot(xcoord, ycoord, SSID, authentication, availability, openhr, closedhr);
 			
 			//add the newly created hotspot to the hotspotlist array
-			
 			hotspotList.push(hotspot);
 			
 			//addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 		});
+		//how many children do i have?
+		var numberofchild = dataObject.numChildren();
+		console.log(numberofchild);
 		draw();
 		dataObject = null;
 		}, function (errorObject) {
@@ -271,7 +269,7 @@ require([
 	}//end loadAllPoints
 	
 	function pushToFirebase(hotspot){
-		myFirebase.push({"SSID":hotspot.ssid,"Latitude":hotspot.lat,"Longitude":hotspot.lon,"Authentication Type":hotspot.auth,"Availability":hotspot.avail});
+		myFirebase.push({"SSID":hotspot.ssid,"Latitude":hotspot.lat,"Longitude":hotspot.lon,"Authentication Type":hotspot.auth,"Availability":hotspot.avail,"Openhr":hotspot.openhr,"Closedhr":hotspot.closedhr});
 		loadAllPoints();
 	}
         
