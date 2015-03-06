@@ -3,7 +3,7 @@ var map;
 var graphic;
 var currLocation;
 var watchId;
-var myFirebase = new Firebase("https://esrimcgilltest2.firebaseio.com/");
+var myFirebase = new Firebase("https://open-wifinder.firebaseio.com/");
 
 var lon;
 var lat;
