@@ -92,6 +92,7 @@ require([
 
 	//draw() function draws all hotspots in the hotspotList[]
 	function draw () {
+		map.graphics.clear();
 		for (i=0; i<hotspotList.length; i++){
 			var attr = {"SSID":hotspotList[i].ssid,"Authorization":hotspotList[i].auth,"Availability":hotspotList[i].avail,"Open":hotspotList[i].openhr,"Closed":hotspotList[i].closedhr};
 	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>SSID: </strong> ${SSID}  <br/> <strong>Type:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability} <br/><strong>Open:</strong>${Open}</br><strong>Closed:</strong>${Closed}");
