@@ -64,11 +64,11 @@ require([
       }, "LocateButton");
       geoLocate.startup();
 	  
-	  var addPointBtn = dom.byId("addPtBtn");
-	  on(addPointBtn, "click", closestDist);
+	   var addPointBtn = dom.byId("addPoint");
+	  on(addPointBtn, "click" );
 	  
-	  var loadPtsBtn = dom.byId("loadPts");
-	  on(loadPtsBtn, "click", loadAllPoints);
+	  var closestPtBtn = dom.byId("closestPoint");
+	  on(closestPtBtn, "click", closestDist);
 	  
 	  var pushDataBtn = dom.byId("pushData");
 	  on(pushDataBtn, "click", pushToFirebase);
