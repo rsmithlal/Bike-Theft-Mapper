@@ -93,6 +93,10 @@
 		height: 30px;
 	}
 	
+	.action.zoomTo{
+	display:none;
+	visibility:hidden;
+	}	
 #subtitle {
 	text-transform:none;
 }
