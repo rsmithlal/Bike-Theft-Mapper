@@ -3,19 +3,12 @@ var map;
 var graphic;
 var currLocation;
 var watchId;
-var graphicsArray = [];
-var newPoint;
-var loc;
-var myFirebase = new Firebase("https://esrimcgilltest.firebaseio.com/");
-/* var myGeofire = new GeoFire(myFirebase); */
+var myFirebase = new Firebase("https://esrimcgilltest2.firebaseio.com/");
 
-
-var long;
+var lon;
 var lat;
 
-var addPtBtn;
-
-long = "-73.5673";
+lon = "-73.5673";
 lat = "45.5017";
 
 require([
@@ -58,12 +51,13 @@ require([
     )  {
 
       map = new Map("map", {
-        center: [long, lat],
+        center: [lon, lat],
         zoom: 12,
         basemap: "streets"
       });
       
 	  map.on("load", initFunc);
+	  loadAllPoints();
 	        
       geoLocate = new LocateButton({
         map: map
@@ -75,6 +69,9 @@ require([
 	  
 	  var loadPtsBtn = dom.byId("loadPts");
 	  on(loadPtsBtn, "click", loadAllPoints);
+	  
+	  var pushDataBtn = dom.byId("pushData");
+	  on(pushDataBtn, "click", pushToFirebase);
 	  
 	  var Hotspot = function (lon, lat, ssid, auth, avail) {
   		this.lon = lon;
@@ -88,12 +85,15 @@ require([
 	  var hotspotList = [];
 	  
 	  var currLoc;
+	  var graphic;
 
 
-//detect change in device orientation and rotate page
+	//draw() function draws all hotspots in the hotspotList[]
 	function draw () {
 		for (i=0; i<hotspotList.length; i++){
-			addGraphic(hotspotList[i].pt);
+			var attr = {"SSID":hotspotList[i].ssid,"Authorization":hotspotList[i].auth,"Availability":hotspotList[i].avail};
+	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
+			addGraphic(hotspotList[i].pt, attr, hotspotInfoBox);
 		}
 		
 	}
@@ -120,8 +120,9 @@ require([
 				closestIndex = i;
 			};	
 		} //end for loop
-		map.centerAt(hotspotList[closestIndex].pt);
-		addGraphic(hotspotList[closestIndex].pt);
+		map.centerAndZoom(hotspotList[closestIndex].pt,15);
+		
+		//addGraphic(hotspotList[closestIndex].pt);
 		
 	}
 	function orientationChanged() {
@@ -136,8 +137,9 @@ require([
         function initFunc(map) {
           if( navigator.geolocation ) {  
             navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-			//loc = navigator.geolocation.getCurrentPosition(zoomToLocation, locationError);
-            //watchId = navigator.geolocation.watchPosition(showLocation, locationError); //Turns off watchPosition when commented
+			
+			//watches for movement and updates current location
+            watchId = navigator.geolocation.watchPosition(watchLocation, locationError); //Turns off watchPosition when commented
           } else {
             alert("Browser doesn't support Geolocation. Visit http://caniuse.com to see browser support for the Geolocation API.");
           }
@@ -188,10 +190,21 @@ require([
             ), 
             new Color([210, 105, 30, 0.9])
           );
-          var graphic = new Graphic(pt, symbol, attributes, info);
+          graphic = new Graphic(pt, symbol, attributes, info);
           map.graphics.add(graphic);
         }
-		
+	
+	function watchLocation(location) {
+          //zoom to the users location and add a graphic
+          var pt = new Point(location.coords.longitude, location.coords.latitude);
+          if ( !graphic ) {
+            addGraphic(pt);
+          } else { // move the graphic if it already exists
+            graphic.setGeometry(pt);
+			currLoc = pt;
+          }
+        }
+	
 	//helper 	
         function showLocation(location) {
           //zoom to the users location and add a graphic
@@ -204,9 +217,9 @@ require([
           map.centerAt(pt);
         }
 		
-	function addPoint(long, lat, ssid, auth, avail) {
+	function addPoint(lon, lat, ssid, auth, avail){
 	/* if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
-	*/var hotspotPoint = new Point(long, lat);
+	*/var hotspotPoint = new Point(lon, lat);
 	var attr = {"SSID":ssid,"Authorization":auth,"Availability":avail};
 	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
 	/* map.centerAt(hotspotPoint); */
@@ -216,87 +229,55 @@ require([
 	function loadAllPoints(){
 
 		var dataObject;
-
+		hotspotList=[];
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
-		dataObject = snapshot.child("features");
+		dataObject = snapshot;
 		
+		//iterate through each child in the datasnapshot
 		dataObject.forEach(function(childSnapshot){
+						
+			var xcoord = childSnapshot.child("Longitude").val();
+			var ycoord = childSnapshot.child("Latitude").val();
+			var authentication = childSnapshot.child("Auth_type").val();
+			var availability = childSnapshot.child("Avail_type").val();
+			var SSID = childSnapshot.child("SSID").val();
 			
+			//convert to strings
+			var xcoord = Number(xcoord);
+			var ycoord = Number(ycoord);
+			var authentication = String(authentication);
+			var availability = String(availability);
+			var SSID = String(SSID);
 			
-			
-			var xcoord = childSnapshot.child("geometry/x").exportVal();
-			var ycoord = childSnapshot.child("geometry/y").val();
-			var authentication = childSnapshot.child("attributes/Auth_type").val();
-			var availability = childSnapshot.child("attributes/Avail_type").val();
-			var SSID = childSnapshot.child("attributes/SSID").val();
-			
-			var xcoordstring = Number(xcoord);
-			var ycoordstring = Number(ycoord);
-			var authenticationstring = String(authentication);
-			var availabilitystring = String(availability);
-			var SSIDstring = String(SSID);
-			
-			
+			//how many children do i have
 			var numberofchild = dataObject.numChildren();
 			console.log(numberofchild);
 			
-			var hotspot = new Hotspot(xcoordstring, ycoordstring, SSIDstring, authenticationstring, availabilitystring);
+			var hotspot = new Hotspot(xcoord, ycoord, SSID, authentication, availability);
+			
+			//add the newly created hotspot to the hotspotlist array
 			
 			hotspotList.push(hotspot);
 			
 			//addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
-			
-			
-	
 		});
-
-		
+		draw();
+		dataObject = null;
 		}, function (errorObject) {
 		console.log("The read failed: " + errorObject.code);
-	});
+	});//end firebase.on()
+	}//end loadAllPoints
 	
-	
-	}
-	
-	function attributetostring (inputattribute){
-		
-		var xcoordinate = String(inputattribute);
-		return xcoordinate;
+	function pushToFirebase(hotspot){
+		myFirebase.push({"SSID":hotspot.ssid,"Latitude":hotspot.lat,"Longitude":hotspot.lon,"Authentication Type":hotspot.auth,"Availability":hotspot.avail});
+		loadAllPoints();
 	}
         
         
-      });
+      });//end BIG FUNCTION
 
 	  
 
-function pushToFirebase(long, lat, auth, avail, SSID){
-/* 		myFirebase.on("value", function(snapshot) {
-		mydatasnapshot = snapshot.child("features");
-		} */
-/* 		
-	var longitude = long;
-	var latitude = lat;
-	var authentication = auth;
-	var availability = avail;
-	var ID = SSID; */
-	
-	/* myFirebase.child("features").push({ 'feature': 'fred', 'text': 'Yabba Dabba Doo!' }); */
-	
-/* 	myFirebase.child(/features).set({
-	hotspotname: hotspot1.ssid,
-	location: [long, lat],
-	description: "Ground floor, good connection"
-	}); */
-	
-	/* myFirebase.set({
-	"hotspotname": ["Hello", long,lat,"description"],
-	"location": [long,lat],
-	"description": ["Ground floor, good connection"]
-	}).then(function() {
-	console.log("Provided keys have been added to GeoFire");
-	}, function(error) {
-	console.log("Error: " + error);
-	}); */
-}
+
