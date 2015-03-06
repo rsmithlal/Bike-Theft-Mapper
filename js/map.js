@@ -167,7 +167,12 @@ require([
 	}
 
 	function loadAllPoints(){
+<<<<<<< HEAD
 		var dataObject;
+=======
+	var mydatasnapshot;
+	
+>>>>>>> origin/master
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
@@ -187,18 +192,23 @@ require([
 			var authenticationstring = String(authentication);
 			var availabilitystring = String(availability);
 			var SSIDstring = String(SSID);
-			
+			var numberofchild = mydatasnapshot.numChildren();
+			console.log(numberofchild);
 			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
 			
 	
 		});
+<<<<<<< HEAD
 		
 		}, function (errorObject) {
 		console.log("The read failed: " + errorObject.code);
 	});
 	console.log(typeof dataObject);
 	
+=======
+		mydatasnapshot = null;
+>>>>>>> origin/master
 	}
 	
 	function attributetostring (inputattribute){
@@ -212,7 +222,18 @@ require([
 
 	  
 
-function pushToFirebase(){
+function pushToFirebase(long, lat, auth, avail, SSID){
+/* 		myFirebase.on("value", function(snapshot) {
+		mydatasnapshot = snapshot.child("features");
+		} */
+/* 		
+	var longitude = long;
+	var latitude = lat;
+	var authentication = auth;
+	var availability = avail;
+	var ID = SSID; */
+	
+	/* myFirebase.child("features").push({ 'feature': 'fred', 'text': 'Yabba Dabba Doo!' }); */
 	
 /* 	myFirebase.child(/features).set({
 	hotspotname: hotspot1.ssid,
