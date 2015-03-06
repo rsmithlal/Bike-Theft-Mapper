@@ -167,17 +167,13 @@ require([
 	}
 
 	function loadAllPoints(){
-<<<<<<< HEAD
+
 		var dataObject;
-=======
-	var mydatasnapshot;
-	
->>>>>>> origin/master
+
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
 		dataObject = snapshot.child("features");
-		console.log(typeof dataObject);
 		
 		dataObject.forEach(function(childSnapshot){
 
@@ -199,16 +195,13 @@ require([
 			
 	
 		});
-<<<<<<< HEAD
+
 		
 		}, function (errorObject) {
 		console.log("The read failed: " + errorObject.code);
 	});
-	console.log(typeof dataObject);
 	
-=======
-		mydatasnapshot = null;
->>>>>>> origin/master
+	
 	}
 	
 	function attributetostring (inputattribute){
