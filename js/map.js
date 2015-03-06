@@ -8,7 +8,7 @@ var newPoint;
 var loc;
 var myFirebase = new Firebase("https://esrimcgilltest.firebaseio.com/");
 /* var myGeofire = new GeoFire(myFirebase); */
-var mydatasnapshot;
+
 
 var long;
 var lat;
@@ -158,28 +158,26 @@ require([
         }
 		
 	function addPoint(long, lat, ssid, auth, avail) {
-//alert("Something happened");
-/* if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
- */var hotspotPoint = new Point(long, lat);
-var attr = {"SSID":ssid,"Authorization":auth,"Availability":avail};
-var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
-/* map.centerAt(hotspotPoint); */
-addGraphic(hotspotPoint, attr, hotspotInfoBox); 
-}
+	/* if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
+	*/var hotspotPoint = new Point(long, lat);
+	var attr = {"SSID":ssid,"Authorization":auth,"Availability":avail};
+	var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
+	/* map.centerAt(hotspotPoint); */
+	addGraphic(hotspotPoint, attr, hotspotInfoBox); 
+	}
 
-		function loadAllPoints(){
+	function loadAllPoints(){
+	var mydatasnapshot;
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
-	//'Auth_type' children under 'attributes' and displays an alert for each record
+	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
-		console.log(snapshot.val());
-		mydatasnapshot = snapshot.child("features");		
-		
+		mydatasnapshot = snapshot.child("features");
 		}, function (errorObject) {
 		console.log("The read failed: " + errorObject.code);
 	});
 	
 	mydatasnapshot.forEach(function(childSnapshot){
-			var key = childSnapshot.key();
+
 			var xcoord = childSnapshot.child("geometry/x").exportVal();
 			var ycoord = childSnapshot.child("geometry/y").val();
 			var authentication = childSnapshot.child("attributes/Auth_type").val();
