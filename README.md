@@ -1,6 +1,6 @@
-# Open Wi-Finder
+# [Open Wi-Finder](http://openwifinder.com)
 ## Built for the Esri Canada Center of Excellence 2015 App Challenge
-
+### *Robert Smith, Matt Kalebic, and Peck Sangiambut // McGill University*
 —
 
 #### **What it does:** 
@@ -10,6 +10,9 @@
 2. The Wi-Fi point locations, embedded with the aforementioned information, are available for download on the analytics side of the application. Governments and civic hackers can identify pockets and clusters of Wi-Fi access, overlay census tract data to conduct socioeconomic analyses within these areas, and formulate policies accordingly. 
 
 We hope that Open Wi-Finder will allow for steps to be taken toward mending the digital divide caused by the confluence of cities and networked infrastructure. 
+
+#### **How to use it:**
+Simply go to the [Open Wi-Finder](http://openwifinder.com) website and start exploring -- we've taken care of the rest!
 
 #### Utilizes:
 * [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/)
