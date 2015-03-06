@@ -189,11 +189,12 @@ require([
 			var authenticationstring = String(authentication);
 			var availabilitystring = String(availability);
 			var SSIDstring = String(SSID);
-			
+			var numberofchild = mydatasnapshot.numChildren();
+			console.log(numberofchild);
 			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
 			
-	
+	mydatasnapshot = null;
 		});
 	}
 	
@@ -224,7 +225,18 @@ var Hotspot = function (ssid, freedom, availability, long, lat) {
 
 var hotspot1 = new Hotspot("1234");
 
-function pushToFirebase(){
+function pushToFirebase(long, lat, auth, avail, SSID){
+/* 		myFirebase.on("value", function(snapshot) {
+		mydatasnapshot = snapshot.child("features");
+		} */
+/* 		
+	var longitude = long;
+	var latitude = lat;
+	var authentication = auth;
+	var availability = avail;
+	var ID = SSID; */
+	
+	/* myFirebase.child("features").push({ 'feature': 'fred', 'text': 'Yabba Dabba Doo!' }); */
 	
 /* 	myFirebase.child(/features).set({
 	hotspotname: hotspot1.ssid,
