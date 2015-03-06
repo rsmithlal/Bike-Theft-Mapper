@@ -100,10 +100,44 @@
         <div id="map"></div>
        
         <div id="LocateButton"></div>
-        <a href="#" id="closestPoint"><img src="img/wifiTrans.png" alt="Find Closest Hotspot"></a>
-        <a href="#" id="addPoint" ><img src="img/addWiFi.png" alt="Add a new Hotspot"></a>
-		<a href="#" id="pushData" ><img src="img/addWiFi.png" alt="Send data to server"></a>
-    </div>
+        <a href="#" id="closestPoint"><img src="img/findNearest.png" alt="Find Closest Hotspot"></a>
+        <a href="#" id="addPointPopup" ><img src="img/addHotspot.png" alt="Add a new Hotspot"></a>
+		
+        <div id="popupDiv">
+        <div id="popupContact">
+<!-- Contact Us Form -->
+          <form action="#" id="form" method="post" name="form">
+         <!-- <img id="close" src="images/3.png" onclick ="div_hide()">-->
+          <h2>Add New Hotspot</h2>
+          
+          	<label style="display:block;" for="ssid">Network Name: </label>
+            <input id="ssid" name="Network Name" placeholder="SSID" type="text">
+          <label style="display:block;" for="auth">Access: </label>
+          <select id="auth" name="Access">
+          		<option value="Free, open access">Free</option>
+                <option value="Free with login">Free with Login</option>
+                <option value="Subscription/Paid">Subscription/Paid</option>
+          </select>
+          <label style="display:block;" for="avail">Availability: </label>
+          <select id="avail" name="Availability">
+          		<option value="24/7">24/7</option>
+                <option value="During Business Hours">During Business Hours</option>
+                <option value="Occasionally">Occasionally</option>
+          </select>
+          <label style="display:block;" for="open">Open from: </label>
+            <input id="openH" name="Open From" placeholder="Hour" type="number" min="0" max="24">
+            <label style="display:block;" for="close">Until: </label>
+            <input id="closeH" name="Until" placeholder="Hour" type="number" min="0" max="24">
+          <a href="#" id="submit" class="submit">Send</a>
+          <a href="#" id="closeDiv" class="close">Close</a>
+          </form>
+          </div>
+          
+          <!-- Popup Div Ends Here -->
+          </div>
+          <!-- Display Popup Button -->
+          
+      </div>
   
   
   <script src="//js.arcgis.com/3.12/"></script>

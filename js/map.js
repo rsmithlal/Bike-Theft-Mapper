@@ -3,7 +3,7 @@ var map;
 var graphic;
 var currLocation;
 var watchId;
-var myFirebase = new Firebase("https://esrimcgilltest2.firebaseio.com/");
+var myFirebase = new Firebase("https://open-wifinder.firebaseio.com/");
 
 var lon;
 var lat;
@@ -64,8 +64,8 @@ require([
       }, "LocateButton");
       geoLocate.startup();
 	  
-	   var addPointBtn = dom.byId("addPoint");
-	  on(addPointBtn, "click" );
+	   var addPointBtn = dom.byId("addPointPopup");
+	  on(addPointBtn, "click", div_show);
 	  
 	  var closestPtBtn = dom.byId("closestPoint");
 	  on(closestPtBtn, "click", closestDist);
@@ -73,20 +73,66 @@ require([
 	  var pushDataBtn = dom.byId("pushData");
 	  on(pushDataBtn, "click", pushToFirebase);
 	  
-	  var Hotspot = function (lon, lat, ssid, auth, avail) {
+	  var submitForm = dom.byId("submit");
+	  on(submitForm, "click", submitData);
+	  
+	  var submitForm = dom.byId("closeDiv");
+	  on(submitForm, "click", div_hide);
+	  
+	  var Hotspot = function (lon, lat, ssid, auth, avail, openH, closeH) {
   		this.lon = lon;
 		this.lat = lat;
 		this.ssid = ssid;
 		this.auth = auth;
 		this.avail = avail;
 		this.pt = new Point(lon, lat);
-		
+		this.openH = openH;
+		this.closeH = closeH;
 	  }
 	  var hotspotList = [];
 	  
 	  var currLoc;
 	  var graphic;
 
+
+
+	function submitData() {
+	if (dom.byId('ssid').value == "" || dom.byId('auth').value == "" || dom.byId('avail').value == "") {
+		alert("Fill All Fields !");
+	} 
+	else {
+	
+	
+	var createHotspot = new Hotspot(currLoc.x,currLoc.y, dom.byId("ssid").value, dom.byId("auth").value, dom.byId("avail").value, dom.byId("openH").value, dom.byId("closeH").value);
+	console.log(createHotspot);
+	pushToFirebase(createHotspot);
+	map.centerAt(createHotspot.pt);
+	//dom.byId('form').submit();
+	alert("New Hotspot Submitted Successfully!");
+	document.getElementById("ssid").reset();
+	document.getElementById("auth").reset();
+	document.getElementById("avail").reset();
+	document.getElementById("openH").reset();
+	document.getElementById("closeH").reset();
+	document.getElementById("form").reset();
+	
+	}
+	div_hide();
+	}
+	//Function To Display Popup
+	function div_show() {
+	document.getElementById("popupDiv").style.display = "block";
+	}
+	//Function to Hide Popup
+	function div_hide(){
+	dom.byId("popupDiv").style.display = "none";
+	document.getElementById("ssid").reset();
+	document.getElementById("auth").reset();
+	document.getElementById("avail").reset();
+	document.getElementById("openH").reset();
+	document.getElementById("closeH").reset();
+	document.getElementById("form").reset();
+	}
 
 	//draw() function draws all hotspots in the hotspotList[]
 	function draw () {
