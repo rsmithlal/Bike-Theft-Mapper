@@ -188,7 +188,7 @@ require([
 			var authenticationstring = String(authentication);
 			var availabilitystring = String(availability);
 			var SSIDstring = String(SSID);
-			var numberofchild = mydatasnapshot.numChildren();
+			var numberofchild = dataObject.numChildren();
 			console.log(numberofchild);
 			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
