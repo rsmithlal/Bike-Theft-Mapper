@@ -35,6 +35,9 @@ div.cd-container a div img {
 	z-index: 2;
 }
 
+.cd-container a{
+  color:blue;
+}
 /* -------------------------------- 
 
 Modules - reusable parts of our design
