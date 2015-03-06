@@ -1,8 +1,15 @@
+
+
 /* -------------------------------- 
 
-Primary style
+#### Utilizes:
+* [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/)
+* [CodyHouse Full-Screen Pop-Out Navigation](http://codyhouse.co/gem/full-screen-pop-out-navigation/)
+* [Firebase ](https://www.firebase.com) 
 
 -------------------------------- */
+
+
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

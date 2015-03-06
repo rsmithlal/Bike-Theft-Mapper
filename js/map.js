@@ -1,3 +1,12 @@
+/* -------------------------------- 
+
+#### Utilizes:
+* [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/)
+* [CodyHouse Full-Screen Pop-Out Navigation](http://codyhouse.co/gem/full-screen-pop-out-navigation/)
+* [Firebase ](https://www.firebase.com) 
+
+-------------------------------- */
+
 // JavaScript Document
 var map;
 var graphic;
