@@ -61,6 +61,11 @@ Modules - reusable parts of our design
   clear: both;
 }
 
+#bodyWrapper {
+	width: 100%;
+	top: 11%;
+}
+
 /* -------------------------------- 
 
 Main components 

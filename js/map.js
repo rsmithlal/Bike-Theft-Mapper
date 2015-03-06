@@ -71,13 +71,59 @@ require([
       geoLocate.startup();
 	  
 	  var addPointBtn = dom.byId("addPtBtn");
-	  on(addPointBtn, "click", addPoint);
+	  on(addPointBtn, "click", closestDist);
 	  
 	  var loadPtsBtn = dom.byId("loadPts");
 	  on(loadPtsBtn, "click", loadAllPoints);
+	  
+	  var Hotspot = function (lon, lat, ssid, auth, avail) {
+  		this.lon = lon;
+		this.lat = lat;
+		this.ssid = ssid;
+		this.auth = auth;
+		this.avail = avail;
+		this.pt = new Point(lon, lat);
+		
+	  }
+	  var hotspotList = [];
+	  
+	  var currLoc;
 
 
 //detect change in device orientation and rotate page
+	function draw () {
+		for (i=0; i<hotspotList.length; i++){
+			addGraphic(hotspotList[i].pt);
+		}
+		
+	}
+	
+	function closestDist (){
+		var minEuclidDist;
+		var closestIndex=0;
+		
+		var x0Dist = hotspotList[0].pt.x - currLoc.x;
+		var y0Dist = hotspotList[0].pt.y - currLoc.y;
+		
+		minEuclidDist = Math.sqrt((x0Dist*x0Dist)+(y0Dist*y0Dist));
+		
+		for (i=0; i<hotspotList.length; i++){
+			var xDist = hotspotList[i].pt.x - currLoc.x;
+			
+			var yDist = hotspotList[i].pt.y - currLoc.y;
+			
+			
+			var euclidDist = Math.sqrt((xDist*xDist)+(yDist*yDist));
+			
+			if (euclidDist<minEuclidDist) {
+				minEuclidDist = euclidDist;
+				closestIndex = i;
+			};	
+		} //end for loop
+		map.centerAt(hotspotList[closestIndex].pt);
+		addGraphic(hotspotList[closestIndex].pt);
+		
+	}
 	function orientationChanged() {
           if(map){
             map.reposition();
@@ -125,8 +171,9 @@ require([
           var pt = new Point(location.coords.longitude, location.coords.latitude);
           addGraphic(pt);
           map.centerAndZoom(pt, 15);
-		  long = location.coords.longitude;
-		  lat = location.coords.latitude;
+		  currLoc = pt;
+		  
+		  
         }
 
 //add graphic to map; helper for adding points	    
@@ -141,7 +188,7 @@ require([
             ), 
             new Color([210, 105, 30, 0.9])
           );
-          graphic = new Graphic(pt, symbol, attributes, info);
+          var graphic = new Graphic(pt, symbol, attributes, info);
           map.graphics.add(graphic);
         }
 		
@@ -176,7 +223,9 @@ require([
 		dataObject = snapshot.child("features");
 		
 		dataObject.forEach(function(childSnapshot){
-
+			
+			
+			
 			var xcoord = childSnapshot.child("geometry/x").exportVal();
 			var ycoord = childSnapshot.child("geometry/y").val();
 			var authentication = childSnapshot.child("attributes/Auth_type").val();
@@ -188,9 +237,16 @@ require([
 			var authenticationstring = String(authentication);
 			var availabilitystring = String(availability);
 			var SSIDstring = String(SSID);
+			
+			
 			var numberofchild = dataObject.numChildren();
 			console.log(numberofchild);
-			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
+			
+			var hotspot = new Hotspot(xcoordstring, ycoordstring, SSIDstring, authenticationstring, availabilitystring);
+			
+			hotspotList.push(hotspot);
+			
+			//addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
 			
 	
