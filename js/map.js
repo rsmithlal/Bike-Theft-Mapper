@@ -168,6 +168,7 @@ require([
 
 	function loadAllPoints(){
 	var mydatasnapshot;
+	
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
@@ -194,8 +195,9 @@ require([
 			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
 			
-	mydatasnapshot = null;
+	
 		});
+		mydatasnapshot = null;
 	}
 	
 	function attributetostring (inputattribute){
