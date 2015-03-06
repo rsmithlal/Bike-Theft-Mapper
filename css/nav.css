@@ -309,7 +309,7 @@ nav ul
 
 .navFooter {
 	width:100%;
-	float: clear;
+	clear:both;
 	z-index:10;
 }
 
