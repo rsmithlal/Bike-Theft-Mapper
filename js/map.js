@@ -167,16 +167,14 @@ require([
 	}
 
 	function loadAllPoints(){
-	var mydatasnapshot;
+		var dataObject;
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//children under 'attributes' and retrieves all attribute data. Then it converts them to strings or numbers and calls addPoint to map them
 		myFirebase.on("value", function(snapshot) {
-		mydatasnapshot = snapshot.child("features");
-		}, function (errorObject) {
-		console.log("The read failed: " + errorObject.code);
-	});
-	
-	mydatasnapshot.forEach(function(childSnapshot){
+		dataObject = snapshot.child("features");
+		console.log(typeof dataObject);
+		
+		dataObject.forEach(function(childSnapshot){
 
 			var xcoord = childSnapshot.child("geometry/x").exportVal();
 			var ycoord = childSnapshot.child("geometry/y").val();
@@ -195,6 +193,12 @@ require([
 			
 	
 		});
+		
+		}, function (errorObject) {
+		console.log("The read failed: " + errorObject.code);
+	});
+	console.log(typeof dataObject);
+	
 	}
 	
 	function attributetostring (inputattribute){
@@ -207,22 +211,6 @@ require([
       });
 
 	  
-//shell function for finding closest hotspot	  
-function findClosest() {
-	alert("No Locations loaded!");
-	
-}
-
-//function to add a new hotspot point from the user to the map
-
-
-var Hotspot = function (ssid, freedom, availability, long, lat) {
-	this.ssid = ssid;
-	
-};
-
-
-var hotspot1 = new Hotspot("1234");
 
 function pushToFirebase(){
 	
