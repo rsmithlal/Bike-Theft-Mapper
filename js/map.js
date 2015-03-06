@@ -7,7 +7,7 @@ var graphicsArray = [];
 var newPoint;
 var loc;
 var myFirebase = new Firebase("https://esrimcgilltest.firebaseio.com/");
-var myGeofire = new GeoFire(myFirebase);
+/* var myGeofire = new GeoFire(myFirebase); */
 var mydatasnapshot;
 
 var long;
@@ -165,9 +165,9 @@ require([
 if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
 hotspotPoint = new Point(this.long, this.lat);
 var attr = {"SSID":this.ssid,"Authorization":this.auth,"Availability":this.avail};
-var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong> ${SSID} <br/> <strong>Freedom Level:</strong> ${Freedom} <br/> <strong>Availability:</strong> ${Availability}");
+var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong>" + this.ssid + " <br/> <strong>Freedom Level:</strong> ${Freedom} <br/> <strong>Availability:</strong> ${Availability}");
 map.centerAt(hotspotPoint);
-addGraphic(hotspotPoint, attr, hotspotInfoBox);
+addGraphic(hotspotPoint, attr, hotspotInfoBox); 
 }
 
 		function iterateFirebase(){
@@ -184,12 +184,15 @@ addGraphic(hotspotPoint, attr, hotspotInfoBox);
 	
 	mydatasnapshot.forEach(function(childSnapshot){
 			var key = childSnapshot.key();
-			var xcoord = childSnapshot.child("geometry/x").val();
+			var xcoord = childSnapshot.child("geometry/x").exportVal();
 			var ycoord = childSnapshot.child("geometry/y").val();
 			var authentication = childSnapshot.child("attributes/Auth_type").val();
 			var availability = childSnapshot.child("attributes/Avail_type").val();
 			var SSID = childSnapshot.child("attributes/SSID").val();
 			
+			alert(xcoord);
+			
+			addPoint(xcoord,ycoord,SSID,authentication,availability);
 			
 			
 			return true;
@@ -214,7 +217,7 @@ var Hotspot = function (ssid, freedom, availability, long, lat) {
 	this.ssid = ssid;
 	
 };
-<<<<<<< HEAD
+
 
 var hotspot1 = new Hotspot("1234");
 
@@ -235,6 +238,4 @@ function pushToFirebase(){
 	}, function(error) {
 	console.log("Error: " + error);
 	}); */
-}	
-=======
->>>>>>> origin/master
+}
