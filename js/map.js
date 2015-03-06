@@ -74,7 +74,7 @@ require([
 	  on(addPointBtn, "click", addPoint);
 	  
 	  var loadPtsBtn = dom.byId("loadPts");
-	  on(loadPtsBtn, "click", iterateFirebase);
+	  on(loadPtsBtn, "click", loadAllPoints);
 
 
 //detect change in device orientation and rotate page
@@ -95,9 +95,6 @@ require([
           } else {
             alert("Browser doesn't support Geolocation. Visit http://caniuse.com to see browser support for the Geolocation API.");
           }
-		  
-		  
-
         }
 //error handling for geolocation
         function locationError(error) {
@@ -162,15 +159,15 @@ require([
 		
 	function addPoint(long, lat, ssid, auth, avail) {
 //alert("Something happened");
-if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
-hotspotPoint = new Point(this.long, this.lat);
-var attr = {"SSID":this.ssid,"Authorization":this.auth,"Availability":this.avail};
-var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name:</strong>" + this.ssid + " <br/> <strong>Freedom Level:</strong> ${Freedom} <br/> <strong>Availability:</strong> ${Availability}");
-map.centerAt(hotspotPoint);
+/* if(map){alert("Map OK" + "\nAdding Point" + "\nAdding Info Box" + "\n\nClick point to show info window");}
+ */var hotspotPoint = new Point(long, lat);
+var attr = {"SSID":ssid,"Authorization":auth,"Availability":avail};
+var hotspotInfoBox = new InfoTemplate("Hotspot Details","<strong>Network Name: </strong> ${SSID}  <br/> <strong>Auth Level:</strong> ${Authorization} <br/> <strong>Availability:</strong> ${Availability}");
+/* map.centerAt(hotspotPoint); */
 addGraphic(hotspotPoint, attr, hotspotInfoBox); 
 }
 
-		function iterateFirebase(){
+		function loadAllPoints(){
 	//this function grabs a 'snapshot' of all the data in Firebase, then navigates down to the 'features' child. It then iterates through all the
 	//'Auth_type' children under 'attributes' and displays an alert for each record
 		myFirebase.on("value", function(snapshot) {
@@ -180,7 +177,6 @@ addGraphic(hotspotPoint, attr, hotspotInfoBox);
 		}, function (errorObject) {
 		console.log("The read failed: " + errorObject.code);
 	});
-	alert("reached end of .on function");
 	
 	mydatasnapshot.forEach(function(childSnapshot){
 			var key = childSnapshot.key();
@@ -190,15 +186,24 @@ addGraphic(hotspotPoint, attr, hotspotInfoBox);
 			var availability = childSnapshot.child("attributes/Avail_type").val();
 			var SSID = childSnapshot.child("attributes/SSID").val();
 			
-			alert(xcoord);
+			var xcoordstring = Number(xcoord);
+			var ycoordstring = Number(ycoord);
+			var authenticationstring = String(authentication);
+			var availabilitystring = String(availability);
+			var SSIDstring = String(SSID);
 			
-			addPoint(xcoord,ycoord,SSID,authentication,availability);
+			addPoint(xcoordstring,ycoordstring,SSIDstring,authenticationstring,availabilitystring);
 			
 			
-			return true;
+	
 		});
-		alert("reached end of iterations");
-}
+	}
+	
+	function attributetostring (inputattribute){
+		
+		var xcoordinate = String(inputattribute);
+		return xcoordinate;
+	}
         
         
       });
