@@ -14,7 +14,7 @@ We hope that Open Wi-Finder will allow for steps to be taken toward mending the 
 #### **How to use it:**
 Simply go to the [Open Wi-Finder](http://openwifinder.com) website and start exploring -- we've taken care of the rest!
 
-You'll see a set of buttons in the lower left corner of the application. Use these to obtain your current location, find the closest Wi-Fi hotspot, and contribute a hotspot location. 
+You'll see a set of buttons in the lower left corner of the application. Use these to obtain your current location, find the closest Wi-Fi hotspot, and contribute a hotspot location. See our [video](http://youtu.be/ksdQD9k1XcQ) on YouTube for more information. 
 
 #### Utilizes:
 * [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/)
