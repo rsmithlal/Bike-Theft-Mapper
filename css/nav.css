@@ -324,26 +324,7 @@ nav ul
 	display: none;
 }
 
-.teamMember {
-	width: 500px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
-.teamMember h2 {
-	text-align: center;
-}
-
-.teamMember img {
-	width: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
-}
-
-.teamMember p {
-	
-}
 
 .cd-container h1 {
 	text-align:center;
